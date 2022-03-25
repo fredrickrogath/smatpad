@@ -404,27 +404,29 @@ class _itemsCartState extends State<itemsCart> {
                     ],
                   )
                 : const Text('Empty'),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                // Add your onPressed code here!
-                // Navigator.push(
-                //         context,
-                //         PageTransition(
-                //             duration: const Duration(milliseconds: 600),
-                //             reverseDuration: const Duration(milliseconds: 600),
-                //             type: PageTransitionType.rightToLeftWithFade,
-                //             child: itemsCart(cartItems: _cart)))
-                //     // .whenComplete(refreshItems)
-                //     ;
-              },
-              // label: Text("${context.watch<CartDisplay>().getItemCount}"),
-              label: const Text('Confirm items on cart',
-                  style: TextStyle(
-                      color: Colors.white,
-                      // fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold)),
-              icon: const Icon(Icons.visibility),
-              backgroundColor: const Color(0xFF337A6F),
+            floatingActionButton: SizedBox(height: MediaQuery.of(context).size.height/20,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  // Add your onPressed code here!
+                  // Navigator.push(
+                  //         context,
+                  //         PageTransition(
+                  //             duration: const Duration(milliseconds: 600),
+                  //             reverseDuration: const Duration(milliseconds: 600),
+                  //             type: PageTransitionType.rightToLeftWithFade,
+                  //             child: itemsCart(cartItems: _cart)))
+                  //     // .whenComplete(refreshItems)
+                  //     ;
+                },
+                // label: Text("${context.watch<CartDisplay>().getItemCount}"),
+                label: const Text('Confirm items on cart',
+                    style: TextStyle(
+                        color: Colors.white,
+                        // fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold)),
+                icon: const Icon(Icons.visibility),
+                backgroundColor: const Color(0xFF337A6F),
+              ),
             )));
   }
 }
