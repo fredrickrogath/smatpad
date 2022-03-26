@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:smatpad/providers/cart.dart';
 
@@ -22,6 +23,8 @@ class _itemsCartState extends State<itemsCart> {
   double frameWidth = 0;
 
   static const String defaultImagePath = 'assets/logo/logo2.png';
+
+  NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
 
   ScrollController scrollController =
       ScrollController(initialScrollOffset: 25 * 12);
@@ -65,48 +68,112 @@ class _itemsCartState extends State<itemsCart> {
             ),
             body: cartItems.isNotEmpty
                 ? Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Card(
-                        child: Column(children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text('Items number'),
-                                Text(context
-                                    .watch<CartDisplay>()
-                                    .getItemCount
-                                    .toString()
-                                    .padLeft(2, '0'))
-                              ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text('Total orders'),
-                                Text(
-                                    '${context.watch<CartDisplay>().getNumberOfAllOrders()}')
-                              ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text('Total products'),
-                                Text(
-                                    '${context.watch<CartDisplay>().getNumberOfProducts()}')
-                              ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text('Total services'),
-                                Text(
-                                    '${context.watch<CartDisplay>().getNumberOfServices()}')
-                              ]),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                const Text('Total cost'),
-                                Text(
-                                    '${context.watch<CartDisplay>().totalCost()}')
-                              ])
-                        ]),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Card(
+                          elevation: 3.0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(150),
+                          ),
+                          child: Column(children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: frameWidth / 7),
+                                    const Text('Items number   : ',
+                                        style: const TextStyle(
+                                          fontSize: 16.5,
+                                        )),
+                                    SizedBox(width: frameWidth / 10),
+                                    Text(
+                                        context
+                                            .watch<CartDisplay>()
+                                            .getItemCount
+                                            .toString()
+                                            .padLeft(2, '0'),
+                                        style: const TextStyle(
+                                            fontSize: 16.5,
+                                            color: Colors.green))
+                                  ]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: frameWidth / 7),
+                                    const Text('Total orders       :',
+                                        style: const TextStyle(
+                                          fontSize: 16.5,
+                                        )),
+                                    SizedBox(width: frameWidth / 8.5),
+                                    Text(
+                                        '${context.watch<CartDisplay>().getNumberOfAllOrders()}',
+                                        style: const TextStyle(
+                                            fontSize: 16.5,
+                                            color: Colors.green))
+                                  ]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: frameWidth / 7),
+                                    const Text('Total products   :',
+                                        style: const TextStyle(
+                                          fontSize: 16.5,
+                                        )),
+                                    SizedBox(width: frameWidth / 9),
+                                    Text(
+                                        '${context.watch<CartDisplay>().getNumberOfProducts()}',
+                                        style: const TextStyle(
+                                            fontSize: 16.5,
+                                            color: Colors.green))
+                                  ]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: frameWidth / 7),
+                                    const Text('Total services    :',
+                                        style: const TextStyle(
+                                          fontSize: 16.5,
+                                        )),
+                                    SizedBox(width: frameWidth / 9),
+                                    Text(
+                                        '${context.watch<CartDisplay>().getNumberOfServices()}',
+                                        style: const TextStyle(
+                                            fontSize: 16.5,
+                                            color: Colors.green))
+                                  ]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(width: frameWidth / 7),
+                                    const Text('Total cost           :',
+                                        style: const TextStyle(
+                                          fontSize: 16.5,
+                                        )),
+                                    SizedBox(width: frameWidth / 9),
+                                    Text(
+                                        'Tsh ${myFormat.format(context.watch<CartDisplay>().totalCost())}',
+                                        style: const TextStyle(
+                                            fontSize: 16.5,
+                                            color: Colors.green))
+                                  ]),
+                            )
+                          ]),
+                        ),
                       ),
                       ListView.builder(
                           padding: const EdgeInsets.only(
@@ -144,7 +211,7 @@ class _itemsCartState extends State<itemsCart> {
                                   ),
                                   subtitle: Row(children: [
                                     Text(
-                                        "${cartItems[index].sale_price * cartItems[index].count}"),
+                                        'Tsh ${myFormat.format(cartItems[index].sale_price * cartItems[index].count)}'),
                                     const SizedBox(
                                       width: 10.0,
                                     ),
@@ -158,7 +225,7 @@ class _itemsCartState extends State<itemsCart> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0),
                                         child: Text(
-                                          "Tsh ${cartItems[index].sale_price * cartItems[index].count}",
+                                          "Tsh ${myFormat.format(cartItems[index].sale_price * cartItems[index].count)}",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.green),
@@ -203,7 +270,8 @@ class _itemsCartState extends State<itemsCart> {
                                                     padding: const EdgeInsets
                                                             .symmetric(
                                                         horizontal: 5.0),
-                                                    child: Text(context
+                                                    child: Text(
+                                                        context
                                                             .watch<
                                                                 CartDisplay>()
                                                             .getSingleItem(
@@ -288,145 +356,41 @@ class _itemsCartState extends State<itemsCart> {
                                     ],
                                   )),
                             );
-
-                            // Card(
-                            //   elevation: 2.5,
-                            //   color: Colors.white,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(20.0),
-                            //   ),
-                            //   child: SizedBox(
-                            //     height: 80.0,
-                            //     child: ListTile(
-                            //       leading: GestureDetector(
-                            //         child: ClipRRect(
-                            //           borderRadius: BorderRadius.circular(16.0),
-                            //           child: Image.asset(
-                            //             defaultImagePath,
-                            //             height: 55.0,
-                            //           ),
-                            //         ),
-                            //       ),
-                            //       title: Row(
-                            //           mainAxisAlignment:
-                            //               MainAxisAlignment.spaceBetween,
-                            //           children: [
-                            //             // CircleAvatar(
-                            //             //     radius: MediaQuery.of(context).size.height/43,
-                            //             //     backgroundColor: Color(0xFF337A6F),
-                            //             //     child: Text('P',
-                            //             //         style: TextStyle(
-                            //             //             fontSize: 24.0,
-                            //             //             fontStyle: FontStyle.italic,
-                            //             //             color: Colors.white,
-                            //             //             fontWeight:
-                            //             //                 FontWeight.w500))),
-                            //             Column(
-                            //                 mainAxisAlignment:
-                            //                     MainAxisAlignment.center,
-                            //                 children: [
-                            //                   SizedBox(
-                            //                     width: 100.0,
-                            //                     child: Text(
-                            //                         '${cartItems[index].name}',
-                            //                         overflow: TextOverflow.ellipsis,
-                            //                         style: const TextStyle(
-                            //                             color: Colors.black87,
-                            //                             fontSize: 18.0,
-                            //                             fontWeight: FontWeight.w600,
-                            //                             fontStyle: FontStyle.italic)),
-                            //                   ),
-                            //                   const SizedBox(
-                            //                     height: 5.0,
-                            //                   ),
-                            //                   Text(
-                            //                       '${cartItems[index].sale_price * cartItems[index].count}',
-                            //                       style: const TextStyle(
-                            //                           color: Colors.green,
-                            //                           fontSize: 17.0,
-                            //                           fontStyle: FontStyle.italic)),
-                            //                 ]),
-                            //             Column(
-                            //               mainAxisAlignment:
-                            //                   MainAxisAlignment.spaceAround,
-                            //               children: [
-                            //                 SizedBox(
-                            //                   height: MediaQuery.of(context).size.height/35,
-                            //                   child: FloatingActionButton.extended(
-                            //                       elevation: 1.0,
-                            //                       foregroundColor: Colors.white,
-                            //                       backgroundColor:
-                            //                           const Color(0xFF337A6F),
-                            //                       onPressed: () {
-                            //                         context
-                            //                           .read<CartDisplay>().updateItemCount(cartItems[index].id, 'add');
-                            //                       },
-                            //                       label: Row(children: const [
-                            //                         Icon(
-                            //                           Icons.add,
-                            //                           size: 20.0,
-                            //                         ),
-                            //                       ])),
-                            //                 ),
-                            //                 SizedBox(
-                            //                   height: MediaQuery.of(context).size.height/35,
-                            //                   child: FloatingActionButton.extended(
-                            //                       elevation: 1.0,
-                            //                       foregroundColor: Colors.white,
-                            //                       backgroundColor:
-                            //                           const Color(0xFF337A6F),
-                            //                       onPressed: () {
-                            //                         context
-                            //                           .read<CartDisplay>().updateItemCount(cartItems[index].id, 'remove');
-                            //                       },
-                            //                       label: Row(children: const [
-                            //                         Icon(
-                            //                           Icons.remove,
-                            //                           size: 20.0,
-                            //                         ),
-                            //                       ])),
-                            //                 ),
-                            //               ],
-                            //             )
-                            //           ]),
-                            //       trailing: CircleAvatar(
-                            //         radius:MediaQuery.of(context).size.height/43,
-                            //           backgroundColor: Color(0xFF337A6F),
-                            //           child: Text(context.watch<CartDisplay>().getSingleItem(cartItems[index].id),
-                            //               style: const TextStyle(
-                            //                   color: Colors.white,
-                            //                   fontStyle: FontStyle.italic,
-                            //                   fontWeight: FontWeight.w500))),
-                            //     ),
-                            //   ),
-                            // );
                           })
                     ],
                   )
-                : const Text('Empty'),
-            floatingActionButton: SizedBox(height: MediaQuery.of(context).size.height/20,
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  // Add your onPressed code here!
-                  // Navigator.push(
-                  //         context,
-                  //         PageTransition(
-                  //             duration: const Duration(milliseconds: 600),
-                  //             reverseDuration: const Duration(milliseconds: 600),
-                  //             type: PageTransitionType.rightToLeftWithFade,
-                  //             child: itemsCart(cartItems: _cart)))
-                  //     // .whenComplete(refreshItems)
-                  //     ;
-                },
-                // label: Text("${context.watch<CartDisplay>().getItemCount}"),
-                label: const Text('Confirm items on cart',
-                    style: TextStyle(
-                        color: Colors.white,
-                        // fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                icon: const Icon(Icons.visibility),
-                backgroundColor: const Color(0xFF337A6F),
-              ),
-            )));
+                : const Center(
+                    child: Text(
+                      'Nothing found',
+                      style: TextStyle(color: Colors.grey, fontSize: 15),
+                    ),
+                  ),
+            floatingActionButton: cartItems.isNotEmpty
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.height / 20,
+                    child: FloatingActionButton.extended(
+                      onPressed: () {
+                        // Add your onPressed code here!
+                        // Navigator.push(
+                        //         context,
+                        //         PageTransition(
+                        //             duration: const Duration(milliseconds: 600),
+                        //             reverseDuration: const Duration(milliseconds: 600),
+                        //             type: PageTransitionType.rightToLeftWithFade,
+                        //             child: itemsCart(cartItems: _cart)))
+                        //     // .whenComplete(refreshItems)
+                        //     ;
+                      },
+                      // label: Text("${context.watch<CartDisplay>().getItemCount}"),
+                      label: const Text('Confirm items on cart',
+                          style: TextStyle(
+                              color: Colors.white,
+                              // fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold)),
+                      icon: const Icon(Icons.visibility),
+                      backgroundColor: const Color(0xFF337A6F),
+                    ),
+                  )
+                : const Text('')));
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +52,8 @@ class _welcomePageState extends State<welcomePage> {
 
   static const String defaultImagePath = 'assets/logo/logo.jpg';
 
+  NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
+
   // Future addItemTest() async {
   //   final item = Item(
   //       name: 'Sprite',
@@ -70,6 +73,10 @@ class _welcomePageState extends State<welcomePage> {
 
   //   await itemsDatabase.instance.create(item);
   // }
+
+  void deleteItem(int itemId) async {
+    await itemsDatabase.instance.delete(itemId);
+  }
 
   TextEditingController textController = TextEditingController();
 
@@ -441,46 +448,6 @@ class _welcomePageState extends State<welcomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    // SizedBox(
-                    //   height: 30.0,
-                    //   width: 94.0,
-                    //   child: OpenContainer(
-                    //     closedColor: Colors.white,
-                    //     openColor: const Color(0xFF337A6F),
-                    //     closedElevation: 5.0,
-                    //     openElevation: 0.0,
-                    //     closedShape: const RoundedRectangleBorder(
-                    //       borderRadius:
-                    //           BorderRadius.all(Radius.circular(10.0)),
-                    //     ),
-                    //     transitionType: ContainerTransitionType.fade,
-                    //     transitionDuration: const Duration(milliseconds: 500),
-                    //     openBuilder: (context, action) {
-                    //       return const addItem();
-                    //     },
-                    //     closedBuilder: (context, action) {
-                    //       refreshItems();
-                    //       return Row(
-                    //         mainAxisAlignment: MainAxisAlignment.center,
-                    //         children: const [
-                    //           Icon(
-                    //             Icons.add_circle_outline_rounded,
-                    //             size: 23.0,
-                    //             color: Color(0xFF337A6F),
-                    //           ),
-                    //           Text(
-                    //             'Add item',
-                    //             style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               // fontSize: 15.0,
-                    //               color: Color(0xFF337A6F),
-                    //             ),
-                    //           )
-                    //         ],
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -697,7 +664,11 @@ class _welcomePageState extends State<welcomePage> {
                       // .whenComplete(refreshItems)
                       ;
                 },
-                label: Text(context.watch<CartDisplay>().getItemCount.toString().padLeft(2, '0')),
+                label: Text(context
+                    .watch<CartDisplay>()
+                    .getItemCount
+                    .toString()
+                    .padLeft(2, '0')),
                 icon: const Icon(Icons.add_shopping_cart),
                 backgroundColor: const Color(0xFF337A6F),
               ),
@@ -788,16 +759,16 @@ class _welcomePageState extends State<welcomePage> {
               dismissible: DismissiblePane(onDismissed: () {}),
 
               // All actions are defined in the children parameter.
-              children: const [
+              children: [
                 // A SlidableAction can have an icon and/or a label.
-                SlidableAction(
+                const SlidableAction(
                   onPressed: null,
                   backgroundColor: Colors.white,
                   foregroundColor: Color(0xFF337A6F),
                   icon: Icons.add_shopping_cart,
                   // label: 'Purchase',
                 ),
-                SlidableAction(
+                const SlidableAction(
                   onPressed: null,
                   backgroundColor: Colors.white,
                   foregroundColor: Color(0xFF337A6F),
@@ -805,7 +776,10 @@ class _welcomePageState extends State<welcomePage> {
                   // label: 'Edit item',
                 ),
                 SlidableAction(
-                  onPressed: null,
+                  onPressed: (context) {
+                    deleteItem(_item.id);
+                    refreshItems();
+                  },
                   backgroundColor: Colors.white,
                   foregroundColor: Color(0xffDB575B),
                   icon: Icons.delete_outline_outlined,
@@ -944,14 +918,16 @@ class _welcomePageState extends State<welcomePage> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Text(
-                              "Tsh ${_item.sale_price}",
+                              "Tsh ${myFormat.format(_item.sale_price)}",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green),
                             ),
                           ),
-                          context.read<CartDisplay>().getItemList.any(
-                                      (element) => element.id == _item.id)
+                          context
+                                  .read<CartDisplay>()
+                                  .getItemList
+                                  .any((element) => element.id == _item.id)
                               ? SizedBox(
                                   height: frameHeight / 26,
                                   width: frameWidth / 2.8,
@@ -965,7 +941,9 @@ class _welcomePageState extends State<welcomePage> {
                                               const Color(0xFF337A6F),
                                           onPressed: () {
                                             context
-                                                .read<CartDisplay>().updateItemCount(_item.id, 'remove');
+                                                .read<CartDisplay>()
+                                                .updateItemCount(
+                                                    _item.id, 'remove');
                                           },
                                           label: Row(children: const [
                                             Icon(
@@ -973,10 +951,13 @@ class _welcomePageState extends State<welcomePage> {
                                               size: 10.0,
                                             ),
                                           ])),
-                                       Padding(
+                                      Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 3.0),
-                                        child: Text(context.watch<CartDisplay>().getSingleItem(_item.id),
+                                        child: Text(
+                                            context
+                                                .watch<CartDisplay>()
+                                                .getSingleItem(_item.id),
                                             style: const TextStyle(
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.w500,
@@ -989,7 +970,9 @@ class _welcomePageState extends State<welcomePage> {
                                               const Color(0xFF337A6F),
                                           onPressed: () {
                                             context
-                                                .read<CartDisplay>().updateItemCount(_item.id, 'add');
+                                                .read<CartDisplay>()
+                                                .updateItemCount(
+                                                    _item.id, 'add');
 
                                             // addedToCart.add(_item.id);
                                           },
@@ -1020,15 +1003,15 @@ class _welcomePageState extends State<welcomePage> {
                                         //         .getItemList
                                         //         .firstWhere((element) =>
                                         //             element.count++)
-                                        //     : 
-                                            context
-                                                .read<CartDisplay>()
-                                                .addItemsToCart(
-                                                    _item.id,
-                                                    _item.name,
-                                                    _item.category,
-                                                    _item.image_path,
-                                                    _item.sale_price);
+                                        //     :
+                                        context
+                                            .read<CartDisplay>()
+                                            .addItemsToCart(
+                                                _item.id,
+                                                _item.name,
+                                                _item.category,
+                                                _item.image_path,
+                                                _item.sale_price);
                                         // context.read<CartDisplay>().increment();
 
                                         // addedToCart.add(_item.id);
