@@ -107,7 +107,7 @@ class _itemsCartState extends State<itemsCart> {
                                   children: [
                                     SizedBox(width: frameWidth / 7),
                                     const Text('Total orders       :',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16.5,
                                         )),
                                     SizedBox(width: frameWidth / 8.5),
@@ -125,7 +125,7 @@ class _itemsCartState extends State<itemsCart> {
                                   children: [
                                     SizedBox(width: frameWidth / 7),
                                     const Text('Total products   :',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16.5,
                                         )),
                                     SizedBox(width: frameWidth / 9),
@@ -143,7 +143,7 @@ class _itemsCartState extends State<itemsCart> {
                                   children: [
                                     SizedBox(width: frameWidth / 7),
                                     const Text('Total services    :',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16.5,
                                         )),
                                     SizedBox(width: frameWidth / 9),
@@ -161,7 +161,7 @@ class _itemsCartState extends State<itemsCart> {
                                   children: [
                                     SizedBox(width: frameWidth / 7),
                                     const Text('Total cost           :',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 16.5,
                                         )),
                                     SizedBox(width: frameWidth / 9),
@@ -366,29 +366,53 @@ class _itemsCartState extends State<itemsCart> {
                     ),
                   ),
             floatingActionButton: cartItems.isNotEmpty
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height / 20,
-                    child: FloatingActionButton.extended(
-                      onPressed: () {
-                        // Add your onPressed code here!
-                        // Navigator.push(
-                        //         context,
-                        //         PageTransition(
-                        //             duration: const Duration(milliseconds: 600),
-                        //             reverseDuration: const Duration(milliseconds: 600),
-                        //             type: PageTransitionType.rightToLeftWithFade,
-                        //             child: itemsCart(cartItems: _cart)))
-                        //     // .whenComplete(refreshItems)
-                        //     ;
-                      },
-                      // label: Text("${context.watch<CartDisplay>().getItemCount}"),
-                      label: const Text('Confirm items on cart',
-                          style: TextStyle(
-                              color: Colors.white,
-                              // fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold)),
-                      icon: const Icon(Icons.visibility),
-                      backgroundColor: const Color(0xFF337A6F),
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 20,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              context.read<CartDisplay>().clearCart();
+                            },
+                            // label: Text("${context.watch<CartDisplay>().getItemCount}"),
+                            label: const Text('Clear cart',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    // fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold)),
+                            icon: const Icon(Icons.cancel),
+                            backgroundColor: const Color(0xFFC1292E),
+                          ),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 20,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              // Add your onPressed code here!
+                              // Navigator.push(
+                              //         context,
+                              //         PageTransition(
+                              //             duration: const Duration(milliseconds: 600),
+                              //             reverseDuration: const Duration(milliseconds: 600),
+                              //             type: PageTransitionType.rightToLeftWithFade,
+                              //             child: itemsCart(cartItems: _cart)))
+                              //     // .whenComplete(refreshItems)
+                              //     ;
+                            },
+                            // label: Text("${context.watch<CartDisplay>().getItemCount}"),
+                            label: const Text('Confirm cart',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    // fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold)),
+                            icon: const Icon(Icons.visibility),
+                            backgroundColor: const Color(0xFF337A6F),
+                          ),
+                        )
+                      ],
                     ),
                   )
                 : const Text('')));

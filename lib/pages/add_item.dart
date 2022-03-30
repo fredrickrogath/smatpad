@@ -18,6 +18,8 @@ class _addItemState extends State<addItem> {
   var activeButton = 'product';
   var expireDate;
   var stockDate;
+  double heightFrame = 0;
+  double widthFrame = 0;
   late FToast fToast;
 
   String itemName = '';
@@ -74,7 +76,7 @@ class _addItemState extends State<addItem> {
           SizedBox(
             width: 12.0,
           ),
-          Text("ell Units set successfully"),
+          Text("Sell Units set successfully"),
         ],
       ),
     );
@@ -96,6 +98,8 @@ class _addItemState extends State<addItem> {
 
   @override
   Widget build(BuildContext context) {
+    heightFrame = MediaQuery.of(context).size.height;
+    widthFrame = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -206,8 +210,8 @@ class _addItemState extends State<addItem> {
             child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
           child: SizedBox(
-            width: MediaQuery.of(context).size.width / 3.5,
-            height: MediaQuery.of(context).size.height / 22,
+            width: widthFrame / 3.5,
+            height: heightFrame / 22,
             child: ElevatedButton(
               child: Text(
                 expireDate == null ? 'Expiry Date' : '$expireDate',
@@ -291,8 +295,8 @@ class _addItemState extends State<addItem> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width / 3.5,
-              height: MediaQuery.of(context).size.height / 24,
+              width: widthFrame / 3.5,
+              height: heightFrame / 24,
               child: ElevatedButton(
                 child: Text(
                   expireDate == null ? 'Upload image' : 'Image set',
@@ -340,7 +344,7 @@ class _addItemState extends State<addItem> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 24,
+            height: heightFrame / 24,
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -382,7 +386,7 @@ class _addItemState extends State<addItem> {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height / 24,
+            height: heightFrame / 24,
             child: ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -545,8 +549,8 @@ class _addItemState extends State<addItem> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 5,
-                  height: MediaQuery.of(context).size.height / 24,
+                  width: widthFrame / 5,
+                  height:heightFrame / 24,
                   child: ElevatedButton(
                     child: const Text(
                       'Set Unit',
@@ -563,7 +567,7 @@ class _addItemState extends State<addItem> {
                         isOverlayTapDismiss: false,
                         descStyle: const TextStyle(fontWeight: FontWeight.bold),
                         descTextAlign: TextAlign.start,
-                        animationDuration: const Duration(milliseconds: 700),
+                        animationDuration: const Duration(milliseconds: 400),
                         alertBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                           side: const BorderSide(
@@ -585,7 +589,7 @@ class _addItemState extends State<addItem> {
                                   height:
                                       MediaQuery.of(context).size.height / 23),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height / 12,
+                                height: MediaQuery.of(context).size.height / 18,
                                 child: DropdownSearch<String>(
                                   mode: Mode.MENU,
                                   showSelectedItems: true,
@@ -616,9 +620,9 @@ class _addItemState extends State<addItem> {
                               ),
                               SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 23),
+                                      heightFrame / 23),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height / 12,
+                                height: heightFrame / 18,
                                 child: DropdownSearch<String>(
                                   mode: Mode.MENU,
                                   // showSelectedItem: true,
@@ -718,7 +722,7 @@ class _addItemState extends State<addItem> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height / 24,
+                height: heightFrame / 24,
                 child: ElevatedButton(
                   child: Text(
                     expireDate == null ? 'Set Stock Date' : '$expireDate',

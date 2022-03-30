@@ -86,4 +86,10 @@ class CartDisplay extends ChangeNotifier {
     }
     return totalCost;
   }
+
+  clearCart() {
+    cartItems.clear();
+
+    notifyListeners();
+  }
 }
