@@ -650,6 +650,7 @@ class _welcomePageState extends State<welcomePage> {
       floatingActionButton: context.watch<CartDisplay>().getItemCount > 0
           ? SizedBox(
               width: frameWidth / 5,
+              height: frameHeight / 19,
               child: FloatingActionButton.extended(
                 onPressed: () {
                   // Add your onPressed code here!
@@ -669,7 +670,7 @@ class _welcomePageState extends State<welcomePage> {
                     .getItemCount
                     .toString()
                     .padLeft(2, '0')),
-                icon: const Icon(Icons.add_shopping_cart),
+                icon: const Icon(Icons.add_shopping_cart, size: 20.0),
                 backgroundColor: const Color(0xFF337A6F),
               ),
             )

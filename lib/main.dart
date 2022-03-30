@@ -64,6 +64,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double heightFrame = 0;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   final PersistentTabController _controller =
@@ -109,6 +110,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    heightFrame = MediaQuery.of(context).size.height;
     return Scaffold(
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
@@ -178,6 +180,16 @@ class _HomePageState extends State<HomePage> {
       //     ],
       //   ),
       // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom:60),
+          child: SizedBox(height: heightFrame/ 19,
+            child: FloatingActionButton(backgroundColor:const Color(0xFF337A6F),
+              child: const Icon(Icons.add, size: 20.0),
+              onPressed: () {},
+            ),
+          ),
+        ),
     );
   }
 
@@ -215,5 +227,6 @@ class _HomePageState extends State<HomePage> {
           navBarStyle: NavBarStyle
               .style1, // Choose the nav bar style with this property.
         ),
+    
       );
 }
