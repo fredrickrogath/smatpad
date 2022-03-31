@@ -102,4 +102,11 @@ class CartDisplay extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  removeItemFromCart(itemId) {
+    var itemToUpdate = cartItems.singleWhere((item) => item.id == itemId);
+    itemToUpdate.count = 0;
+    resetItemCount(itemId);
+    notifyListeners();
+  }
 }

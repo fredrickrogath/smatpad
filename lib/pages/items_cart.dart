@@ -82,9 +82,10 @@ class _itemsCartState extends State<itemsCart> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(width: frameWidth / 7),
-                                    const Text('Items number   : ',
+                                    const Text('Items number : ',
                                         style: TextStyle(
                                           fontSize: 16.5,
+                                          fontWeight: FontWeight.bold,
                                         )),
                                     SizedBox(width: frameWidth / 10),
                                     Text(
@@ -104,9 +105,10 @@ class _itemsCartState extends State<itemsCart> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(width: frameWidth / 7),
-                                    const Text('Total orders       :',
+                                    const Text('Total orders     :',
                                         style: TextStyle(
                                           fontSize: 16.5,
+                                          fontWeight: FontWeight.bold,
                                         )),
                                     SizedBox(width: frameWidth / 8.5),
                                     Text(
@@ -122,9 +124,10 @@ class _itemsCartState extends State<itemsCart> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(width: frameWidth / 7),
-                                    const Text('Total products   :',
+                                    const Text('Total products :',
                                         style: TextStyle(
                                           fontSize: 16.5,
+                                          fontWeight: FontWeight.bold,
                                         )),
                                     SizedBox(width: frameWidth / 9),
                                     Text(
@@ -140,9 +143,10 @@ class _itemsCartState extends State<itemsCart> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(width: frameWidth / 7),
-                                    const Text('Total services    :',
+                                    const Text('Total services  :',
                                         style: TextStyle(
                                           fontSize: 16.5,
+                                          fontWeight: FontWeight.bold,
                                         )),
                                     SizedBox(width: frameWidth / 9),
                                     Text(
@@ -158,9 +162,10 @@ class _itemsCartState extends State<itemsCart> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(width: frameWidth / 7),
-                                    const Text('Total cost           :',
+                                    const Text('Total cost         :',
                                         style: TextStyle(
                                           fontSize: 16.5,
+                                          fontWeight: FontWeight.bold,
                                         )),
                                     SizedBox(width: frameWidth / 9),
                                     Text(
@@ -205,7 +210,7 @@ class _itemsCartState extends State<itemsCart> {
                                           .hardUpdateItemCount(
                                               cartItems[index].id, 'remove', '5');},
                                     backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xffDB575B),
+                                    foregroundColor: const Color(0xFFef233c),
                                     label: '- 5',
                                     // label: 'Purchase',
                                   ),
@@ -218,7 +223,7 @@ class _itemsCartState extends State<itemsCart> {
                                               cartItems[index].id, 'remove', '10');
                                     },
                                     backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xffDB575B),
+                                    foregroundColor: const Color(0xFFef233c),
                                     label: '- 10',
                                     // label: 'Edit item',
                                   ),
@@ -229,7 +234,7 @@ class _itemsCartState extends State<itemsCart> {
                                           .hardUpdateItemCount(
                                               cartItems[index].id, 'remove', '20');},
                                     backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xffDB575B),
+                                    foregroundColor: const Color(0xFFef233c),
                                     label: '- 20',
                                   ),
                                 ],
@@ -301,20 +306,31 @@ class _itemsCartState extends State<itemsCart> {
                                         ),
                                       ),
                                     ),
-                                    title: Text(
-                                      "${cartItems[index].name}",
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                    title: Padding(
+                                      padding: const EdgeInsets.only(bottom:4.0),
+                                      child: Text(
+                                        "${cartItems[index].name}",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                    subtitle: Row(children: [
-                                      Text(
-                                          'Tsh ${myFormat.format(cartItems[index].sale_price * cartItems[index].count)}'),
-                                      const SizedBox(
-                                        width: 10.0,
-                                      ),
-                                    ]),
+                                    subtitle: SizedBox(
+                          height: MediaQuery.of(context).size.height / 30,
+                          child: FloatingActionButton.extended(elevation: 0.0,
+                            onPressed: () {context
+                                          .read<CartDisplay>()
+                                          .removeItemFromCart(
+                                              cartItems[index].id);
+                            },
+                            label: const Text('Remove',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    )),
+                            backgroundColor: const Color(0xFFef233c),
+                          ),
+                        ),
                                     trailing: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
@@ -339,14 +355,14 @@ class _itemsCartState extends State<itemsCart> {
                                                     cartItems[index].id)
                                             ? SizedBox(
                                                 height: frameHeight / 26,
-                                                width: frameWidth / 2.5,
+                                                width: frameWidth / 2.9,
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     FloatingActionButton
                                                         .extended(
-                                                            elevation: 1.0,
+                                                            elevation: 0.0,
                                                             foregroundColor:
                                                                 Colors.white,
                                                             backgroundColor:
@@ -394,7 +410,7 @@ class _itemsCartState extends State<itemsCart> {
                                                     ),
                                                     FloatingActionButton
                                                         .extended(
-                                                            elevation: 1.0,
+                                                            elevation: 0.0,
                                                             foregroundColor:
                                                                 Colors.white,
                                                             backgroundColor:
@@ -409,7 +425,7 @@ class _itemsCartState extends State<itemsCart> {
                                                                               index]
                                                                           .id,
                                                                       'add');
-
+                                                
                                                               // addedToCart.add(_item.id);
                                                             },
                                                             label: Row(
@@ -433,22 +449,6 @@ class _itemsCartState extends State<itemsCart> {
                                                             const Color(
                                                                 0xFF337A6F),
                                                         onPressed: () {
-                                                          // final isAdded = context
-                                                          //     .read<CartDisplay>()
-                                                          //     .getItemList
-                                                          //     .any((element) => element.id == 16);
-
-                                                          // isAdded == true
-                                                          //     ? context
-                                                          //         .read<CartDisplay>()
-                                                          //         .getItemList
-                                                          //         .firstWhere((element) =>
-                                                          //             element.count++)
-                                                          //     :
-
-                                                          // context.read<CartDisplay>().increment();
-
-                                                          // addedToCart.add(_item.id);
                                                         },
                                                         label: Row(
                                                             children: const [
@@ -497,7 +497,7 @@ class _itemsCartState extends State<itemsCart> {
                                     // fontStyle: FontStyle.italic,
                                     fontWeight: FontWeight.bold)),
                             icon: const Icon(Icons.cancel),
-                            backgroundColor: const Color(0xFFC1292E),
+                            backgroundColor: const Color(0xFFef233c),
                           ),
                         ),
                         SizedBox(
@@ -530,8 +530,4 @@ class _itemsCartState extends State<itemsCart> {
                   )
                 : const Text('')));
   }
-}
-
-void doNothing(BuildContext context) {
-  print('hello');
 }
