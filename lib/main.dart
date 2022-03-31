@@ -1,5 +1,6 @@
 // import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,11 +65,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double heightFrame = 0;
   final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
+
+      double frameHeight = 0.0;
+      double frameWidth = 0.0;
 
   List<Widget> _buildScreens() {
     return [
@@ -110,7 +113,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    heightFrame = MediaQuery.of(context).size.height;
+    frameHeight = MediaQuery.of(context).size.height;
+
+    frameWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
@@ -181,16 +186,18 @@ class _HomePageState extends State<HomePage> {
       //   ),
       // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom:60),
-          child: SizedBox(height: heightFrame/ 19,
-            child: FloatingActionButton(backgroundColor:const Color(0xFF337A6F),
-              child: const Icon(Icons.add, size: 20.0),
-              onPressed: () {},
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom:63.0),
+        child: DraggableFab(
+          child: SizedBox(height: frameHeight/19.0,
+            child: FloatingActionButton(backgroundColor: Color(0xFF337A6F),
+              onPressed: (){},
+              child: const Icon(Icons.add),
             ),
           ),
         ),
-    );
+      ),
+             );
   }
 
   Widget buildBottomNavigations() => Scaffold(
@@ -227,6 +234,7 @@ class _HomePageState extends State<HomePage> {
           navBarStyle: NavBarStyle
               .style1, // Choose the nav bar style with this property.
         ),
-    
+
+      //   floatingAcz
       );
 }

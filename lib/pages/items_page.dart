@@ -4,6 +4,7 @@ import 'package:animations/animations.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -15,8 +16,8 @@ import 'package:smatpad/db/items_database.dart';
 import 'package:smatpad/providers/cart.dart';
 import 'package:smatpad/model/item.dart';
 import 'package:smatpad/pages/view_product.dart';
-import 'package:provider/provider.dart';
 import 'package:smatpad/providers/item_category_buttons.dart';
+import 'package:draggable_fab/draggable_fab.dart';
 
 import '../model/cart.dart';
 import 'add_item.dart';
@@ -79,6 +80,7 @@ class _welcomePageState extends State<welcomePage> {
   }
 
   TextEditingController textController = TextEditingController();
+  // late ScrollController _controller;
 
   _showToast() {
     Widget toast = Container(
@@ -118,14 +120,33 @@ class _welcomePageState extends State<welcomePage> {
     //     });
   }
 
+  // _scrollListener() {
+  //   if (_controller.offset >= _controller.position.maxScrollExtent &&
+  //       !_controller.position.outOfRange) {
+  //         print("reach the bottom");
+  //     setState(() {
+        
+  //     });
+  //   }
+  //   if (_controller.offset <= _controller.position.minScrollExtent &&
+  //       !_controller.position.outOfRange) {
+  //         print("reach the top");
+  //     setState(() {
+        
+  //     });
+  //   }
+  // }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // addItemTest();
     refreshItems();
-    fToast = FToast();
-    fToast.init(context);
+    // fToast = FToast();
+    // fToast.init(context);
+    // _controller = ScrollController();
+    // _controller.addListener(_scrollListener);
   }
 
   @override
@@ -648,32 +669,34 @@ class _welcomePageState extends State<welcomePage> {
       //***SET CART BUTTON SIZE CORRESPONDING TO ITEM'S SIZE
 
       floatingActionButton: context.watch<CartDisplay>().getItemCount > 0
-          ? SizedBox(
-              width: frameWidth / 5,
-              height: frameHeight / 19,
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  // Add your onPressed code here!
-                  Navigator.push(
-                          context,
-                          PageTransition(
-                              duration: const Duration(milliseconds: 600),
-                              reverseDuration:
-                                  const Duration(milliseconds: 600),
-                              type: PageTransitionType.rightToLeftWithFade,
-                              child: itemsCart(cartItems: _cart)))
-                      // .whenComplete(refreshItems)
-                      ;
-                },
-                label: Text(context
-                    .watch<CartDisplay>()
-                    .getItemCount
-                    .toString()
-                    .padLeft(2, '0')),
-                icon: const Icon(Icons.add_shopping_cart, size: 20.0),
-                backgroundColor: const Color(0xFF337A6F),
+          ? DraggableFab(
+            child: SizedBox(
+                width: frameWidth / 5,
+                height: frameHeight / 19,
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    // Add your onPressed code here!
+                    Navigator.push(
+                            context,
+                            PageTransition(
+                                duration: const Duration(milliseconds: 600),
+                                reverseDuration:
+                                    const Duration(milliseconds: 600),
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: itemsCart(cartItems: _cart)))
+                        // .whenComplete(refreshItems)
+                        ;
+                  },
+                  label: Text(context
+                      .watch<CartDisplay>()
+                      .getItemCount
+                      .toString()
+                      .padLeft(2, '0')),
+                  icon: const Icon(Icons.add_shopping_cart, size: 20.0),
+                  backgroundColor: const Color(0xFF337A6F),
+                ),
               ),
-            )
+          )
           : const SizedBox(height: 0.0, width: 0.0),
     ));
   }
@@ -722,6 +745,7 @@ class _welcomePageState extends State<welcomePage> {
               )
             //builder checks if activeButton is all items, products, or services
             : ListView.builder(
+              // controller: _controller,
                 padding: const EdgeInsets.all(0.0),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

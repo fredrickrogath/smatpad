@@ -39,6 +39,16 @@ class CartDisplay extends ChangeNotifier {
     notifyListeners();
   }
 
+  hardUpdateItemCount(itemId, action, gap) {
+    var itemToUpdate = cartItems.singleWhere((item) => item.id == itemId);
+    itemToUpdate.count >= 0 && action == 'add'
+        ? itemToUpdate.count = itemToUpdate.count + int.parse(gap)
+        : itemToUpdate.count == 1 && action == 'remove'
+            ? resetItemCount(itemId)
+            : itemToUpdate.count = itemToUpdate.count - int.parse(gap);
+    notifyListeners();
+  }
+
   resetItemCount(itemId) {
     cartItems.removeWhere((item) => item.id == itemId);
   }
