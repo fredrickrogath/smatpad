@@ -998,8 +998,6 @@ class _welcomePageState extends State<welcomePage> {
                                                 .read<CartDisplay>()
                                                 .updateItemCount(
                                                     _item.id, 'add');
-
-                                            // addedToCart.add(_item.id);
                                           },
                                           label: Row(children: const [
                                             Icon(

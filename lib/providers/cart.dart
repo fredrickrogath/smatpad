@@ -33,9 +33,10 @@ class CartDisplay extends ChangeNotifier {
     var itemToUpdate = cartItems.singleWhere((item) => item.id == itemId);
     itemToUpdate.count >= 0 && action == 'add'
         ? itemToUpdate.count++
-        : itemToUpdate.count == 1 && action == 'remove'
-            ? resetItemCount(itemId)
+        : itemToUpdate.count <= 1 && action == 'remove'
+            ? itemToUpdate.count = 0
             : itemToUpdate.count--;
+            
     notifyListeners();
   }
 
@@ -43,9 +44,14 @@ class CartDisplay extends ChangeNotifier {
     var itemToUpdate = cartItems.singleWhere((item) => item.id == itemId);
     itemToUpdate.count >= 0 && action == 'add'
         ? itemToUpdate.count = itemToUpdate.count + int.parse(gap)
-        : itemToUpdate.count == 1 && action == 'remove'
-            ? resetItemCount(itemId)
+        : itemToUpdate.count <= 1 && action == 'remove'
+            ? itemToUpdate.count = 0
             : itemToUpdate.count = itemToUpdate.count - int.parse(gap);
+
+    itemToUpdate.count <= 0
+        ? itemToUpdate.count = 0
+        : itemToUpdate.count = itemToUpdate.count;
+
     notifyListeners();
   }
 

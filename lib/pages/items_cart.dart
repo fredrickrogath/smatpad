@@ -225,7 +225,6 @@ class _itemsCartState extends State<itemsCart> {
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFFef233c),
                                     label: '- 10',
-                                    // label: 'Edit item',
                                   ),
                                   SlidableAction(
                                     autoClose: false,
