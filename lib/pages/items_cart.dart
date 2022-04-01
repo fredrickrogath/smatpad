@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:smatpad/providers/cart.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 class itemsCart extends StatefulWidget {
   final List cartItems;
@@ -26,6 +27,14 @@ class _itemsCartState extends State<itemsCart> {
 
   ScrollController scrollController =
       ScrollController(initialScrollOffset: 25 * 12);
+
+  String? selectedValue;
+  List<String> items = [
+    'smatpad 1',
+    'smatpad 2',
+    'smatpad 3',
+    'smatpad 4',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +72,14 @@ class _itemsCartState extends State<itemsCart> {
                     color: Colors.black87,
                     fontSize: MediaQuery.of(context).size.width * 0.05),
               ),
+              actions: [actionOptions(), SizedBox(width: frameWidth/50,)],
             ),
             body: cartItems.isNotEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 8.0,),
                         child: Card(
                           elevation: 4.0,
                           shape: RoundedRectangleBorder(
@@ -157,7 +167,7 @@ class _itemsCartState extends State<itemsCart> {
                                   ]),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.only(top: 4, left: 4, bottom: 10, right: 4),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -205,10 +215,14 @@ class _itemsCartState extends State<itemsCart> {
                                   // A SlidableAction can have an icon and/or a label.
                                   SlidableAction(
                                     autoClose: false,
-                                    onPressed: (context) {context
+                                    onPressed: (context) {
+                                      context
                                           .read<CartDisplay>()
                                           .hardUpdateItemCount(
-                                              cartItems[index].id, 'remove', '5');},
+                                              cartItems[index].id,
+                                              'remove',
+                                              '5');
+                                    },
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFFef233c),
                                     label: '- 5',
@@ -220,7 +234,9 @@ class _itemsCartState extends State<itemsCart> {
                                       context
                                           .read<CartDisplay>()
                                           .hardUpdateItemCount(
-                                              cartItems[index].id, 'remove', '10');
+                                              cartItems[index].id,
+                                              'remove',
+                                              '10');
                                     },
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFFef233c),
@@ -228,10 +244,14 @@ class _itemsCartState extends State<itemsCart> {
                                   ),
                                   SlidableAction(
                                     autoClose: false,
-                                    onPressed: (context) {context
+                                    onPressed: (context) {
+                                      context
                                           .read<CartDisplay>()
                                           .hardUpdateItemCount(
-                                              cartItems[index].id, 'remove', '20');},
+                                              cartItems[index].id,
+                                              'remove',
+                                              '20');
+                                    },
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFFef233c),
                                     label: '- 20',
@@ -245,25 +265,27 @@ class _itemsCartState extends State<itemsCart> {
                                 children: [
                                   SlidableAction(
                                     autoClose: false,
-                                    onPressed: (context) {context
+                                    onPressed: (context) {
+                                      context
                                           .read<CartDisplay>()
                                           .hardUpdateItemCount(
-                                              cartItems[index].id, 'add', '5');},
+                                              cartItems[index].id, 'add', '5');
+                                    },
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFF337A6F),
                                     label: '+ 5',
-                                    // label: 'Purchase',
                                   ),
                                   SlidableAction(
                                     autoClose: false,
-                                    onPressed: (context) {context
+                                    onPressed: (context) {
+                                      context
                                           .read<CartDisplay>()
                                           .hardUpdateItemCount(
-                                              cartItems[index].id, 'add', '10');},
+                                              cartItems[index].id, 'add', '10');
+                                    },
                                     backgroundColor: Colors.white,
                                     foregroundColor: const Color(0xFF337A6F),
                                     label: '+ 10',
-                                    // label: 'Edit item',
                                   ),
                                   SlidableAction(
                                     autoClose: false,
@@ -277,14 +299,6 @@ class _itemsCartState extends State<itemsCart> {
                                     foregroundColor: const Color(0xFF337A6F),
                                     label: '+ 20',
                                   ),
-                                  // SlidableAction(
-                                  //   // flex: 1,
-                                  //   onPressed: null,
-                                  //   backgroundColor: Colors.white,
-                                  //   foregroundColor: Color(0xFFC1292E),
-                                  //   icon: Icons.money_off_csred_sharp,
-                                  //   label: 'Return',
-                                  // ),
                                 ],
                               ),
                               child: Card(
@@ -306,7 +320,8 @@ class _itemsCartState extends State<itemsCart> {
                                       ),
                                     ),
                                     title: Padding(
-                                      padding: const EdgeInsets.only(bottom:4.0),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 4.0),
                                       child: Text(
                                         "${cartItems[index].name}",
                                         overflow: TextOverflow.ellipsis,
@@ -316,20 +331,25 @@ class _itemsCartState extends State<itemsCart> {
                                       ),
                                     ),
                                     subtitle: SizedBox(
-                          height: MediaQuery.of(context).size.height / 30,
-                          child: FloatingActionButton.extended(elevation: 0.0,
-                            onPressed: () {context
-                                          .read<CartDisplay>()
-                                          .removeItemFromCart(
-                                              cartItems[index].id);
-                            },
-                            label: const Text('Remove',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    )),
-                            backgroundColor: const Color(0xFFef233c),
-                          ),
-                        ),
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              30,
+                                      child: FloatingActionButton.extended(
+                                        elevation: 0.0,
+                                        onPressed: () {
+                                          context
+                                              .read<CartDisplay>()
+                                              .removeItemFromCart(
+                                                  cartItems[index].id);
+                                        },
+                                        label: const Text('Remove',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            )),
+                                        backgroundColor:
+                                            const Color(0xFFef233c),
+                                      ),
+                                    ),
                                     trailing: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
@@ -359,32 +379,35 @@ class _itemsCartState extends State<itemsCart> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    FloatingActionButton
-                                                        .extended(
-                                                            elevation: 0.0,
-                                                            foregroundColor:
-                                                                Colors.white,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF337A6F),
-                                                            onPressed: () {
-                                                              context
-                                                                  .read<
-                                                                      CartDisplay>()
-                                                                  .updateItemCount(
-                                                                      cartItems[
-                                                                              index]
-                                                                          .id,
-                                                                      'remove');
-                                                            },
-                                                            label: Row(
-                                                                children: const [
-                                                                  Icon(
-                                                                    Icons
-                                                                        .remove,
-                                                                    size: 10.0,
-                                                                  ),
-                                                                ])),
+                                                    SizedBox(height: frameHeight / 26,
+                                                width: frameWidth / 8.5,
+                                                      child: FloatingActionButton
+                                                          .extended(
+                                                              elevation: 0.0,
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xFF337A6F),
+                                                              onPressed: () {
+                                                                context
+                                                                    .read<
+                                                                        CartDisplay>()
+                                                                    .updateItemCount(
+                                                                        cartItems[
+                                                                                index]
+                                                                            .id,
+                                                                        'remove');
+                                                              },
+                                                              label: Row(
+                                                                  children: const [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      size: 10.0,
+                                                                    ),
+                                                                  ])),
+                                                    ),
                                                     Padding(
                                                       padding: const EdgeInsets
                                                               .symmetric(
@@ -400,40 +423,43 @@ class _itemsCartState extends State<itemsCart> {
                                                           style:
                                                               const TextStyle(
                                                                   fontSize:
-                                                                      18.0,
+                                                                      16.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
                                                                   color: Colors
                                                                       .green)),
                                                     ),
-                                                    FloatingActionButton
-                                                        .extended(
-                                                            elevation: 0.0,
-                                                            foregroundColor:
-                                                                Colors.white,
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xFF337A6F),
-                                                            onPressed: () {
-                                                              context
-                                                                  .read<
-                                                                      CartDisplay>()
-                                                                  .updateItemCount(
-                                                                      cartItems[
-                                                                              index]
-                                                                          .id,
-                                                                      'add');
-                                                
-                                                              // addedToCart.add(_item.id);
-                                                            },
-                                                            label: Row(
-                                                                children: const [
-                                                                  Icon(
-                                                                    Icons.add,
-                                                                    size: 10.0,
-                                                                  ),
-                                                                ])),
+                                                    SizedBox(height: frameHeight / 26,
+                                                width: frameWidth / 8.5,
+                                                      child: FloatingActionButton
+                                                          .extended(
+                                                              elevation: 0.0,
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xFF337A6F),
+                                                              onPressed: () {
+                                                                context
+                                                                    .read<
+                                                                        CartDisplay>()
+                                                                    .updateItemCount(
+                                                                        cartItems[
+                                                                                index]
+                                                                            .id,
+                                                                        'add');
+
+                                                                // addedToCart.add(_item.id);
+                                                              },
+                                                              label: Row(
+                                                                  children: const [
+                                                                    Icon(
+                                                                      Icons.add,
+                                                                      size: 10.0,
+                                                                    ),
+                                                                  ])),
+                                                    ),
                                                   ],
                                                 ))
                                             : SizedBox(
@@ -447,8 +473,7 @@ class _itemsCartState extends State<itemsCart> {
                                                         backgroundColor:
                                                             const Color(
                                                                 0xFF337A6F),
-                                                        onPressed: () {
-                                                        },
+                                                        onPressed: () {},
                                                         label: Row(
                                                             children: const [
                                                               Icon(
@@ -503,22 +528,11 @@ class _itemsCartState extends State<itemsCart> {
                           height: MediaQuery.of(context).size.height / 20,
                           child: FloatingActionButton.extended(
                             onPressed: () {
-                              // Add your onPressed code here!
-                              // Navigator.push(
-                              //         context,
-                              //         PageTransition(
-                              //             duration: const Duration(milliseconds: 600),
-                              //             reverseDuration: const Duration(milliseconds: 600),
-                              //             type: PageTransitionType.rightToLeftWithFade,
-                              //             child: itemsCart(cartItems: _cart)))
-                              //     // .whenComplete(refreshItems)
-                              //     ;
                             },
-                            // label: Text("${context.watch<CartDisplay>().getItemCount}"),
+                            
                             label: const Text('Confirm cart',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    // fontStyle: FontStyle.italic,
                                     fontWeight: FontWeight.bold)),
                             icon: const Icon(Icons.visibility),
                             backgroundColor: const Color(0xFF337A6F),
@@ -529,4 +543,46 @@ class _itemsCartState extends State<itemsCart> {
                   )
                 : const Text('')));
   }
+
+  Widget actionOptions() => Center(
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton2(
+            customButton: const Icon(
+              Icons.more_vert_rounded,
+              size: 25,
+              color: Colors.black,
+            ),
+            items: items
+                .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ))
+                .toList(),
+            value: selectedValue,
+            onChanged: (value) {
+              setState(() {
+                selectedValue = value as String;
+              });
+            },
+            itemHeight: 48,
+            itemPadding: const EdgeInsets.only(left: 16, right: 16),
+            dropdownWidth: 160,
+            dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: const Color(0xFF337A6F),
+            ),
+            dropdownElevation: 8,
+            offset: const Offset(0, 8),
+          ),
+        ),
+      );
 }

@@ -36,7 +36,7 @@ class CartDisplay extends ChangeNotifier {
         : itemToUpdate.count <= 1 && action == 'remove'
             ? itemToUpdate.count = 0
             : itemToUpdate.count--;
-            
+
     notifyListeners();
   }
 
@@ -50,6 +50,10 @@ class CartDisplay extends ChangeNotifier {
 
     itemToUpdate.count <= 0
         ? itemToUpdate.count = 0
+        : itemToUpdate.count = itemToUpdate.count;
+
+    itemToUpdate.count > 999
+        ? itemToUpdate.count - int.parse(gap)
         : itemToUpdate.count = itemToUpdate.count;
 
     notifyListeners();

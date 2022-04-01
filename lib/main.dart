@@ -1,11 +1,13 @@
 // import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:draggable_fab/draggable_fab.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:smatpad/pages/items_page.dart';
 import 'package:smatpad/providers/item_category_buttons.dart';
 import 'package:smatpad/themes/primary_swatch.dart';
@@ -70,8 +72,8 @@ class _HomePageState extends State<HomePage> {
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
 
-      double frameHeight = 0.0;
-      double frameWidth = 0.0;
+  double heightFrame = 0.0;
+  double widthFrame = 0.0;
 
   List<Widget> _buildScreens() {
     return [
@@ -111,11 +113,31 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+  _showToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.greenAccent,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(Icons.check),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text("Sell Units set successfully"),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    frameHeight = MediaQuery.of(context).size.height;
+    heightFrame = MediaQuery.of(context).size.height;
 
-    frameWidth = MediaQuery.of(context).size.width;
+    widthFrame = MediaQuery.of(context).size.width;
     return Scaffold(
       body: DoubleBackToCloseApp(
         snackBar: const SnackBar(
@@ -187,17 +209,150 @@ class _HomePageState extends State<HomePage> {
       // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom:63.0),
+        padding: const EdgeInsets.only(bottom: 63.0),
         child: DraggableFab(
-          child: SizedBox(height: frameHeight/19.0,
-            child: FloatingActionButton(backgroundColor: Color(0xFF337A6F),
-              onPressed: (){},
+          child: SizedBox(
+            height: heightFrame / 19.0,
+            child: FloatingActionButton(
+              backgroundColor: const Color(0xFF337A6F),
+              onPressed: () {
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: SizedBox(
+                      width: widthFrame / 5,
+                      height: heightFrame / 24,
+                      child: ElevatedButton(
+                        child: const Text(
+                          'Set Unit',
+                          style: TextStyle(
+                              fontSize: 12,
+                              // fontWeight: FontWeight.w900,
+                              color: Color(0xFFE3F2FD)),
+                        ),
+                        onPressed: () async {
+                          var alertStyle = AlertStyle(
+                            backgroundColor: Colors.white,
+                            animationType: AnimationType.fromLeft,
+                            isCloseButton: true,
+                            isOverlayTapDismiss: false,
+                            descStyle:
+                                const TextStyle(fontWeight: FontWeight.bold),
+                            descTextAlign: TextAlign.start,
+                            animationDuration:
+                                const Duration(milliseconds: 400),
+                            alertBorder: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              side: const BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            titleStyle: const TextStyle(
+                              color: Color(0xFF337A6F),
+                            ),
+                            alertAlignment: Alignment.center,
+                          );
+                          Alert(
+                              context: context,
+                              style: alertStyle,
+                              title: "Set Sells Units",
+                              content: Column(
+                                children: <Widget>[
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              23),
+                                  SizedBox(
+                                    height:
+                                        MediaQuery.of(context).size.height / 18,
+                                    child: DropdownSearch<String>(
+                                      mode: Mode.MENU,
+                                      showSelectedItems: true,
+                                      items: const [
+                                        "Bags",
+                                        "Bottles",
+                                        "Box",
+                                        'Bundles',
+                                        "Cans",
+                                        "Cartons",
+                                        "Dozens",
+                                        'Grammes',
+                                        "Kilograms",
+                                        "Litres",
+                                        "Meters",
+                                        'Millilitres',
+                                        "Numbers",
+                                        "Packs",
+                                        "Pairs",
+                                        'Pieces',
+                                      ],
+                                      label: "Primary unit",
+                                      // hint: "country in menu mode",
+                                      // popupItemDisabled: (String s) =>
+                                      //     s.startsWith('I'),
+                                      onChanged: print,
+                                    ),
+                                  ),
+                                  SizedBox(height: heightFrame / 23),
+                                  SizedBox(
+                                    height: heightFrame / 18,
+                                    child: DropdownSearch<String>(
+                                      mode: Mode.MENU,
+                                      // showSelectedItem: true,
+                                      items: const [
+                                        "Bottles",
+                                        "Box",
+                                        'Bundles',
+                                        "Cans",
+                                        "Cartons",
+                                        "Dozens",
+                                        'Grammes',
+                                        "Kilograms",
+                                        "Litres",
+                                        "Meters",
+                                        'Millilitres',
+                                        "Numbers",
+                                        "Packs",
+                                        "Pairs",
+                                      ],
+                                      label: "Secondary unit",
+                                      // hint: "country in menu mode",
+                                      // popupItemDisabled: (String s) =>
+                                      //     s.startsWith('I'),
+                                      onChanged: print,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              buttons: [
+                                DialogButton(
+                                  color: const Color(0xFF337A6F),
+                                  onPressed: () =>
+                                      {Navigator.pop(context), _showToast()},
+                                  child: const Text(
+                                    "Confirm",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                  ),
+                                )
+                              ]).show();
+
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
               child: const Icon(Icons.add),
             ),
           ),
         ),
       ),
-             );
+    );
   }
 
   Widget buildBottomNavigations() => Scaffold(
@@ -235,6 +390,6 @@ class _HomePageState extends State<HomePage> {
               .style1, // Choose the nav bar style with this property.
         ),
 
-      //   floatingAcz
+        //   floatingAcz
       );
 }
