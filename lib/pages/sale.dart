@@ -1,11 +1,7 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:smatpad/db/items_database.dart';
-import 'package:smatpad/model/item.dart';
 
 class Sale extends StatefulWidget {
   const Sale({Key? key}) : super(key: key);
@@ -406,7 +402,7 @@ class _SaleState extends State<Sale> {
                 onPressed: () {
                   // Add your onPressed code here!
                 },
-                label: Text('Add Items ( Optional )'),
+                label: const Text('Add Items ( Optional )'),
                 icon: const Icon(Icons.add_shopping_cart, size: 20.0),
                 backgroundColor: const Color(0xFF337A6F),
               ),
@@ -420,7 +416,7 @@ class _SaleState extends State<Sale> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+            const Expanded(
               child: Text('Discount'),
             ),
             Expanded(
@@ -438,12 +434,12 @@ class _SaleState extends State<Sale> {
                         prefixIcon: Container(
                           decoration: BoxDecoration(
                               border: Border.all(),
-                              color: Color.fromARGB(255, 249, 194, 190),
+                              color: const Color.fromARGB(255, 249, 194, 190),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                           // background color
-                          child: Icon(Icons.percent_outlined,
-                              color: const Color(0xFFef233c)), // icon
+                                  BorderRadius.all(const Radius.circular(10))),
+                          // background color
+                          child: const Icon(Icons.percent_outlined,
+                              color: Color(0xFFef233c)), // icon
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 0.0,
@@ -486,12 +482,12 @@ class _SaleState extends State<Sale> {
                         prefixIcon: Container(
                           decoration: BoxDecoration(
                               border: Border.all(),
-                              color: Color.fromARGB(255, 249, 194, 190),
+                              color: const Color.fromARGB(255, 249, 194, 190),
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                           // background color
-                          child: Icon(Icons.percent_outlined,
-                              color: const Color(0xFFef233c)), // icon
+                                  const BorderRadius.all(Radius.circular(10))),
+                          // background color
+                          child: const Icon(Icons.percent_outlined,
+                              color: Color(0xFFef233c)), // icon
                         ),
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 0.0,
