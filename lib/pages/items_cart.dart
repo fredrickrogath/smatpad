@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:smatpad/pages/sale.dart';
 import 'package:smatpad/providers/cart.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
@@ -30,10 +32,10 @@ class _itemsCartState extends State<itemsCart> {
 
   String? selectedValue;
   List<String> items = [
-    'smatpad 1',
-    'smatpad 2',
-    'smatpad 3',
-    'smatpad 4',
+    'patowave 1',
+    'patowave 2',
+    'patowave 3',
+    'patowave 4',
   ];
 
   @override
@@ -72,14 +74,21 @@ class _itemsCartState extends State<itemsCart> {
                     color: Colors.black87,
                     fontSize: MediaQuery.of(context).size.width * 0.05),
               ),
-              actions: [actionOptions(), SizedBox(width: frameWidth/50,)],
+              actions: [
+                actionOptions(),
+                SizedBox(
+                  width: frameWidth / 50,
+                )
+              ],
             ),
             body: cartItems.isNotEmpty
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 8.0,),
+                        padding: const EdgeInsets.only(
+                          top: 8.0,
+                        ),
                         child: Card(
                           elevation: 4.0,
                           shape: RoundedRectangleBorder(
@@ -167,7 +176,8 @@ class _itemsCartState extends State<itemsCart> {
                                   ]),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 4, left: 4, bottom: 10, right: 4),
+                              padding: const EdgeInsets.only(
+                                  top: 4, left: 4, bottom: 10, right: 4),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -379,8 +389,9 @@ class _itemsCartState extends State<itemsCart> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    SizedBox(height: frameHeight / 26,
-                                                width: frameWidth / 8.5,
+                                                    SizedBox(
+                                                      height: frameHeight / 26,
+                                                      width: frameWidth / 8.5,
                                                       child: FloatingActionButton
                                                           .extended(
                                                               elevation: 0.0,
@@ -394,8 +405,7 @@ class _itemsCartState extends State<itemsCart> {
                                                                     .read<
                                                                         CartDisplay>()
                                                                     .updateItemCount(
-                                                                        cartItems[
-                                                                                index]
+                                                                        cartItems[index]
                                                                             .id,
                                                                         'remove');
                                                               },
@@ -404,7 +414,8 @@ class _itemsCartState extends State<itemsCart> {
                                                                     Icon(
                                                                       Icons
                                                                           .remove,
-                                                                      size: 10.0,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ])),
                                                     ),
@@ -430,8 +441,9 @@ class _itemsCartState extends State<itemsCart> {
                                                                   color: Colors
                                                                       .green)),
                                                     ),
-                                                    SizedBox(height: frameHeight / 26,
-                                                width: frameWidth / 8.5,
+                                                    SizedBox(
+                                                      height: frameHeight / 26,
+                                                      width: frameWidth / 8.5,
                                                       child: FloatingActionButton
                                                           .extended(
                                                               elevation: 0.0,
@@ -445,8 +457,7 @@ class _itemsCartState extends State<itemsCart> {
                                                                     .read<
                                                                         CartDisplay>()
                                                                     .updateItemCount(
-                                                                        cartItems[
-                                                                                index]
+                                                                        cartItems[index]
                                                                             .id,
                                                                         'add');
 
@@ -456,7 +467,8 @@ class _itemsCartState extends State<itemsCart> {
                                                                   children: const [
                                                                     Icon(
                                                                       Icons.add,
-                                                                      size: 10.0,
+                                                                      size:
+                                                                          10.0,
                                                                     ),
                                                                   ])),
                                                     ),
@@ -528,8 +540,17 @@ class _itemsCartState extends State<itemsCart> {
                           height: MediaQuery.of(context).size.height / 20,
                           child: FloatingActionButton.extended(
                             onPressed: () {
+                              Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          duration:
+                                              const Duration(milliseconds: 600),
+                                          reverseDuration:
+                                              const Duration(milliseconds: 600),
+                                          type: PageTransitionType
+                                              .rightToLeftWithFade,
+                                          child: const Sale()));
                             },
-                            
                             label: const Text('Confirm cart',
                                 style: TextStyle(
                                     color: Colors.white,
