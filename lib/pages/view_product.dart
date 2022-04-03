@@ -33,7 +33,7 @@ class viewProduct extends StatelessWidget {
                             ),
                             transitionType: ContainerTransitionType.fade,
                             transitionDuration:
-                                const Duration(milliseconds: 600),
+                                const Duration(milliseconds: 100),
                             openBuilder: (context, action) {
                               return imageViewer(image: image);
                             },

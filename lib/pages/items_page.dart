@@ -328,7 +328,7 @@ class _welcomePageState extends State<welcomePage> {
                                 BorderRadius.all(Radius.circular(20.0)),
                           ),
                           transitionType: ContainerTransitionType.fade,
-                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionDuration: const Duration(milliseconds: 100),
                           openBuilder: (context, action) {
                             search = false;
                             return const viewProduct(
@@ -420,7 +420,7 @@ class _welcomePageState extends State<welcomePage> {
                                 BorderRadius.all(Radius.circular(20.0)),
                           ),
                           transitionType: ContainerTransitionType.fade,
-                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionDuration: const Duration(milliseconds: 100),
                           openBuilder: (context, action) {
                             search = false;
                             return const viewProduct(
@@ -474,9 +474,9 @@ class _welcomePageState extends State<welcomePage> {
                         Navigator.push(
                                 context,
                                 PageTransition(
-                                    duration: const Duration(milliseconds: 600),
+                                    duration: const Duration(milliseconds: 100),
                                     reverseDuration:
-                                        const Duration(milliseconds: 600),
+                                        const Duration(milliseconds: 100),
                                     type:
                                         PageTransitionType.leftToRightWithFade,
                                     child: const addItem()))
@@ -679,9 +679,9 @@ class _welcomePageState extends State<welcomePage> {
                     Navigator.push(
                             context,
                             PageTransition(
-                                duration: const Duration(milliseconds: 600),
+                                duration: const Duration(milliseconds: 100),
                                 reverseDuration:
-                                    const Duration(milliseconds: 600),
+                                    const Duration(milliseconds: 100),
                                 type: PageTransitionType.rightToLeftWithFade,
                                 child: itemsCart(cartItems: _cart)))
                         // .whenComplete(refreshItems)
@@ -849,7 +849,7 @@ class _welcomePageState extends State<welcomePage> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
               transitionType: ContainerTransitionType.fade,
-              transitionDuration: const Duration(milliseconds: 600),
+              transitionDuration: const Duration(milliseconds: 100),
               openBuilder: (context, action) {
                 return viewProduct(
                   image: '${_item.image_path}',
