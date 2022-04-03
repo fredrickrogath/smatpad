@@ -67,71 +67,79 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
+  // final GlobalKey<FabCircularMenuState> fabKey = GlobalKey();
 
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+  // final PersistentTabController _controller =
+  //     PersistentTabController(initialIndex: 0);
 
   double heightFrame = 0.0;
   double widthFrame = 0.0;
+  //List<String> _titles = ["Home", "Profile", "Shop"];
+  List<Widget> _items = [
+    welcomePage(),
+    welcomePage(),
+    welcomePage(),
+    welcomePage(),
+  ];
+  int _selectedIndex = 0;
 
-  List<Widget> _buildScreens() {
-    return [
-      welcomePage(),
-      welcomePage(),
-      welcomePage(),
-      welcomePage(),
-    ];
-  }
+  // List<Widget> _buildScreens() {
+  //   return [
+  //     welcomePage(),
+  //     welcomePage(),
+  //     welcomePage(),
+  //     welcomePage(),
+  //   ];
+  // }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.book_fill),
-        title: ("Items"),
-        activeColorPrimary: const Color(0xFF337A6F),
-        inactiveColorPrimary: const Color(0xFF337A6F),
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.person_crop_rectangle),
-        title: ("Debts"),
-        activeColorPrimary: const Color(0xFF337A6F),
-        inactiveColorPrimary: const Color(0xFF337A6F),
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.creditcard_fill),
-        title: ("Trans"),
-        activeColorPrimary: const Color(0xFF337A6F),
-        inactiveColorPrimary: const Color(0xFF337A6F),
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.table),
-        title: ("More"),
-        activeColorPrimary: const Color(0xFF337A6F),
-        inactiveColorPrimary: const Color(0xFF337A6F),
-      ),
-    ];
-  }
+  // List<PersistentBottomNavBarItem> _navBarsItems() {
+  //   return [
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(CupertinoIcons.book_fill),
+  //       title: ("Items"),
+  //       activeColorPrimary: const Color(0xFF337A6F),
+  //       inactiveColorPrimary: const Color(0xFF337A6F),
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(CupertinoIcons.person_crop_rectangle),
+  //       title: ("Debts"),
+  //       activeColorPrimary: const Color(0xFF337A6F),
+  //       inactiveColorPrimary: const Color(0xFF337A6F),
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(CupertinoIcons.creditcard_fill),
+  //       title: ("Trans"),
+  //       activeColorPrimary: const Color(0xFF337A6F),
+  //       inactiveColorPrimary: const Color(0xFF337A6F),
+  //     ),
+  //     PersistentBottomNavBarItem(
+  //       icon: const Icon(CupertinoIcons.table),
+  //       title: ("More"),
+  //       activeColorPrimary: const Color(0xFF337A6F),
+  //       inactiveColorPrimary: const Color(0xFF337A6F),
+  //     ),
+  //   ];
+  // }
 
-  _showToast() {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Icon(Icons.check),
-          SizedBox(
-            width: 12.0,
-          ),
-          Text("Sell Units set successfully"),
-        ],
-      ),
-    );
-  }
+  // _showToast() {
+  //   Widget toast = Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(25.0),
+  //       color: Colors.greenAccent,
+  //     ),
+  //     child: Row(
+  //       mainAxisSize: MainAxisSize.min,
+  //       children: const [
+  //         Icon(Icons.check),
+  //         SizedBox(
+  //           width: 12.0,
+  //         ),
+  //         Text("Sell Units set successfully"),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +147,17 @@ class _HomePageState extends State<HomePage> {
 
     widthFrame = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: DoubleBackToCloseApp(
-        snackBar: const SnackBar(
-          content: Text('Tap back again to exit  s m a t p a d'),
-        ),
-        child: buildBottomNavigations(),
-      ),
+      // body: 
+      // DoubleBackToCloseApp(
+      //   snackBar: const SnackBar(
+      //     content: Text('Tap back again to exit  s m a t p a d'),
+      //   ),
+      //   child: buildBottomNavigations(),
+      // ),
+
+
+
+      
       // floatingActionButton: Builder(
       //   builder: (context) => FabCircularMenu(
       //     key: fabKey,
@@ -207,189 +220,89 @@ class _HomePageState extends State<HomePage> {
       //     ],
       //   ),
       // ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 63.0),
-        child: DraggableFab(
-          child: SizedBox(
-            height: heightFrame / 19.0,
-            child: FloatingActionButton(
-              backgroundColor: const Color(0xFF337A6F),
-              onPressed: () {
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: SizedBox(
-                      width: widthFrame / 5,
-                      height: heightFrame / 24,
-                      child: ElevatedButton(
-                        child: const Text(
-                          'Set Unit',
-                          style: TextStyle(
-                              fontSize: 12,
-                              // fontWeight: FontWeight.w900,
-                              color: Color(0xFFE3F2FD)),
-                        ),
-                        onPressed: () async {
-                          var alertStyle = AlertStyle(
-                            backgroundColor: Colors.white,
-                            animationType: AnimationType.fromLeft,
-                            isCloseButton: true,
-                            isOverlayTapDismiss: false,
-                            descStyle:
-                                const TextStyle(fontWeight: FontWeight.bold),
-                            descTextAlign: TextAlign.start,
-                            animationDuration:
-                                const Duration(milliseconds: 400),
-                            alertBorder: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              side: const BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            titleStyle: const TextStyle(
-                              color: Color(0xFF337A6F),
-                            ),
-                            alertAlignment: Alignment.center,
-                          );
-                          Alert(
-                              context: context,
-                              style: alertStyle,
-                              title: "Set Sells Units",
-                              content: Column(
-                                children: <Widget>[
-                                  SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              23),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height / 18,
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      showSelectedItems: true,
-                                      items: const [
-                                        "Bags",
-                                        "Bottles",
-                                        "Box",
-                                        'Bundles',
-                                        "Cans",
-                                        "Cartons",
-                                        "Dozens",
-                                        'Grammes',
-                                        "Kilograms",
-                                        "Litres",
-                                        "Meters",
-                                        'Millilitres',
-                                        "Numbers",
-                                        "Packs",
-                                        "Pairs",
-                                        'Pieces',
-                                      ],
-                                      label: "Primary unit",
-                                      // hint: "country in menu mode",
-                                      // popupItemDisabled: (String s) =>
-                                      //     s.startsWith('I'),
-                                      onChanged: print,
-                                    ),
-                                  ),
-                                  SizedBox(height: heightFrame / 23),
-                                  SizedBox(
-                                    height: heightFrame / 18,
-                                    child: DropdownSearch<String>(
-                                      mode: Mode.MENU,
-                                      // showSelectedItem: true,
-                                      items: const [
-                                        "Bottles",
-                                        "Box",
-                                        'Bundles',
-                                        "Cans",
-                                        "Cartons",
-                                        "Dozens",
-                                        'Grammes',
-                                        "Kilograms",
-                                        "Litres",
-                                        "Meters",
-                                        'Millilitres',
-                                        "Numbers",
-                                        "Packs",
-                                        "Pairs",
-                                      ],
-                                      label: "Secondary unit",
-                                      // hint: "country in menu mode",
-                                      // popupItemDisabled: (String s) =>
-                                      //     s.startsWith('I'),
-                                      onChanged: print,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              buttons: [
-                                DialogButton(
-                                  color: const Color(0xFF337A6F),
-                                  onPressed: () =>
-                                      {Navigator.pop(context), _showToast()},
-                                  child: const Text(
-                                    "Confirm",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                  ),
-                                )
-                              ]).show();
-
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          elevation: 0.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              child: const Icon(Icons.add),
-            ),
-          ),
-        ),
+      body:Center(
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: _items
+        )//_items.elementAt(_index),
       ),
+      bottomNavigationBar: _showBottomNav(),
     );
   }
 
-  Widget buildBottomNavigations() => Scaffold(
-        body: PersistentTabView(
-          context,
-          controller: _controller,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          confineInSafeArea: true,
-          backgroundColor: Colors.white, // Default is Colors.white.
-          handleAndroidBackButtonPress: true, // Default is true.
-          resizeToAvoidBottomInset:
-              true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-          stateManagement: true, // Default is true.
-          hideNavigationBarWhenKeyboardShows:
-              true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-          decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            colorBehindNavBar: Colors.white,
-          ),
-          popAllScreensOnTapOfSelectedTab: true,
-          popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties(
-            // Navigation Bar's items animation properties.
-            duration: Duration(milliseconds: 500),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: const ScreenTransitionAnimation(
-            // Screen transition animation on change of selected tab.
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 500),
-          ),
-          navBarStyle: NavBarStyle
-              .style1, // Choose the nav bar style with this property.
-        ),
+  // Widget buildBottomNavigations() => Scaffold(
+  //       body: PersistentTabView(
+  //         context,
+  //         controller: _controller,
+  //         screens: _buildScreens(),
+  //         items: _navBarsItems(),
+  //         confineInSafeArea: true,
+  //         backgroundColor: Colors.white, // Default is Colors.white.
+  //         handleAndroidBackButtonPress: true, // Default is true.
+  //         resizeToAvoidBottomInset:
+  //             true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+  //         stateManagement: true, // Default is true.
+  //         hideNavigationBarWhenKeyboardShows:
+  //             true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+  //         decoration: NavBarDecoration(
+  //           borderRadius: BorderRadius.circular(10.0),
+  //           colorBehindNavBar: Colors.white,
+  //         ),
+  //         popAllScreensOnTapOfSelectedTab: true,
+  //         popActionScreens: PopActionScreensType.all,
+  //         itemAnimationProperties: const ItemAnimationProperties(
+  //           // Navigation Bar's items animation properties.
+  //           duration: Duration(milliseconds: 500),
+  //           curve: Curves.ease,
+  //         ),
+  //         screenTransitionAnimation: const ScreenTransitionAnimation(
+  //           // Screen transition animation on change of selected tab.
+  //           animateTabTransition: true,
+  //           curve: Curves.ease,
+  //           duration: Duration(milliseconds: 500),
+  //         ),
+  //         navBarStyle: NavBarStyle
+  //             .style1, // Choose the nav bar style with this property.
+  //       ),
 
-        //   floatingAcz
-      );
+  //       //   floatingAcz
+  //     );
+
+
+
+  Widget _showBottomNav()
+  {
+    return BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Shop',
+          ),
+        ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.green,
+      unselectedItemColor: Colors.grey,
+      onTap: _onTap,
+    );
+  }
+ 
+  void _onTap(int index)
+  {
+    _selectedIndex = index;
+    setState(() {
+ 
+    });
+  }
 }
