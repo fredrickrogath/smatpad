@@ -12,11 +12,13 @@ import 'package:smatpad/pages/items_page.dart';
 import 'package:smatpad/providers/item_category_buttons.dart';
 import 'package:smatpad/themes/primary_swatch.dart';
 import 'package:provider/provider.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
 import 'providers/cart.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -28,14 +30,22 @@ void main() {
         ChangeNotifierProvider(create: (_) => CartDisplay()),
         ChangeNotifierProvider(create: (_) => ItemCategoryButtons()),
       ],
-      child: const myApp(),
+      child: myApp(savedThemeMode: savedThemeMode),
     ));
   });
 }
 
-class myApp extends StatelessWidget {
-  const myApp({Key? key}) : super(key: key);
+class myApp extends StatefulWidget {
+  final AdaptiveThemeMode? savedThemeMode;
+  const myApp({Key? key, this.savedThemeMode}) : super(key: key);
 
+  @override
+  State<myApp> createState() => _myAppState();
+}
+
+class _myAppState extends State<myApp> {
+  bool isMaterial = true;
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
